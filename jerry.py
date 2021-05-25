@@ -62,16 +62,7 @@ def takeCommand():
 	return query
 
 email_list={
-			'Jeet':'jeetraiwal@gmail.com',
-			'Dad':'niranjankumarraiwal@gmail.com',
-			'Mom':'manjulataraiwal@gmail.com',
-			'Saurabh':'sourabh.raiwal@gmail.com',
-			'Ved Sir':'vedkumargupta@ipsacademy.org',
-			'Aishwarya':'aishwaryaaric12@gmail.com',
-			'Vanshika':'somanivanshika30002@gmail.com',
-			'Isha':'mehtaisha3006@gmail.com',
-			'Priyanka':'bhardwaj.priyanka.99@gmail.com',
-			'Manvendra':'manvendra.nema1@gmail.com'
+			dictionary having name as key and email address as value
 
 }
 
@@ -103,8 +94,8 @@ def sendEmail(to,content):
 	server=smtplib.SMTP('smtp.gmail.com',587)
 	server.ehlo()
 	server.starttls()
-	server.login('jolly.raiwal@gmail.com','Football@07')
-	server.sendmail('jolly.raiwal@gmail.com',to,content)
+	server.login('your email address','email address password')
+	server.sendmail('your email address',to,content)
 	server.close()
 
 if __name__=="__main__":
@@ -140,7 +131,7 @@ if __name__=="__main__":
 			#music_dir="C:\\music"
 			#songs=os.listdir(music_dir)
 			#print(songs)
-			#os.startfile(os.path.join(music_dir,songs[0]))
+			#os.startfile(path to your music directory)
 
 		elif 'wikipedia' in query:
 			speak("Just a moment, searching wikipedia")
@@ -175,25 +166,25 @@ if __name__=="__main__":
 
 		elif 'open code' in query:
 			speak("Opening Visual Studio Code")
-			codePath="C:\\Users\\Jeet Raiwal\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-			print("O")
+			codePath="visual studio code's exe file address"
+			#print("O")
 			os.startfile(codePath)
 
 
 		elif 'open word' in query:
 			print("Opening microsoft word 2016")
 			speak("Opening microsoft word 2016")
-			wordPath="C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+			wordPath="Microsoft word's exe file address"
 			os.startfile(wordPath)
 
 		elif 'open sublime' in query:
 			speak("Opening Sublime Text")
-			limePath="C:\\Program Files\\Sublime Text 3\\sublime_text.exe"
+			limePath="Sublime's exe file address"
 			os.startfile(limePath)
 
 		elif 'open notepad++' in query:
 			speak("Opening notepad++")
-			notePath="C:\\Program Files (x86)\\Notepad++\\notepad++.exe"
+			notePath="Notepad's exe file address"
 			os.startfile(notePath)
 
 
@@ -215,7 +206,7 @@ if __name__=="__main__":
 
 
 		elif 'send whatsup message' in query:
-			pywhatkit.sendwhatmsg('9993417064', 'Happy birthday',17,46)
+			pywhatkit.sendwhatmsg('your mobile nnumber', 'message to be sent',hour of message to be sent,minute of message to send)
 
 		else:
 			if 'bye' in query:
