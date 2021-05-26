@@ -24,7 +24,7 @@ def speak(audio: object) -> object:
 #----------------------------------------------------------------------------------------------------------------------
 #training
 # Get the training data we previously made
-data_path = './images/jeet/'
+data_path = 'your images folder'
 onlyfiles = [f for f in listdir(data_path) if isfile(join(data_path, f))]
 
 # Create arrays for training data and labels
