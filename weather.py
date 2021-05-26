@@ -8,7 +8,7 @@ BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
 speak("Enter the city name")
 CITY = input("Enter the city: ")
 # API key
-API_KEY = "38e505bccd2a6996d704ff5612f2970c"
+API_KEY = "your api key"
 #For Temperture in Celsius
 units="metric"
 # upadting the URL
