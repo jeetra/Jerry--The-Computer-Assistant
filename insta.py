@@ -1,4 +1,4 @@
 import os
 user=input("Enter the usernmae: ")
-cm='instaloader --login mr.roy670 '+user
+cm='instaloader --login your_user_name '+user
 os.system(cm)
