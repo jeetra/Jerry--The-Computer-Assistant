@@ -14,14 +14,6 @@ from speak1 import speak
 
 # import wolframalpha
 
-'''engine = pyttsx3.init('sapi5')  # microsoft Speech api
-voices = engine.getProperty('voices')
-# print(voices[0].id)
-engine.setProperty('voice', voices[0].id)'''
-
-'''today = datetime.now()
-d=today.strftime(r"%d.%m.%Y.%H.%M.%S")'''
-
 t = time.localtime()
 current_time = time.strftime("%H:%M:%S", t)
 
@@ -29,15 +21,13 @@ current_time = time.strftime("%H:%M:%S", t)
 # print(current_time)
 
 def wishMe():
-    # speak("Initiating Jerry")
-    # os.system('python Vibrant_circle.py')
     hour = int(datetime.datetime.now().hour)
     if hour >= 0 and hour < 12:
         speak("Good Morning sir!!")
-    # print("Good Morning sir!!")
+   
     elif hour >= 12 and hour < 17:
         speak("Good Afternoon sir!!")
-    # print("good Afternoon sir!!")
+   
     else:
         speak("Good evening sir!!")
         print("Good evening sir!!")
@@ -46,13 +36,6 @@ def wishMe():
     speak(current_time)
 
     speak(", how may I help you today?")
-
-
-'''def speak(audio):
-    engine.setProperty('rate', 190)
-    engine.setProperty('volume', 1.0)
-    engine.say(audio)
-    engine.runAndWait()'''
 
 
 def takeCommand():
@@ -78,22 +61,11 @@ def takeCommand():
 
 
 email_list = {
-    'Jeet': 'jeetraiwal@gmail.com',
-    'Dad': 'niranjankumarraiwal@gmail.com',
-    'Mom': 'manjulataraiwal@gmail.com',
-    'Saurabh': 'sourabh.raiwal@gmail.com',
-    'Ved Sir': 'vedkumargupta@ipsacademy.org',
-    'Aishwarya': 'aishwaryaaric12@gmail.com',
-    'Vanshika': 'somanivanshika30002@gmail.com',
-    'Isha': 'mehtaisha3006@gmail.com',
-    'Priyanka': 'bhardwaj.priyanka.99@gmail.com',
-    'Manvendra': 'manvendra.nema1@gmail.com'
-
+                    dictionary having name as key and email address as passowrd
+            
 }
 
 
-#def start1():
- #   os.system('python start.py')
 
 
 def myWork():
@@ -142,8 +114,8 @@ def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('jolly.raiwal@gmail.com', 'Football@07')
-    server.sendmail('jolly.raiwal@gmail.com', to, content)
+    server.login('your email address, 'passowrd of email address')
+    server.sendmail('your email address', to, content)
     server.close()
 
 
@@ -190,8 +162,6 @@ if __name__ == "__main__":
 
 
         elif 'the time' in query:
-            #print(current_time)
-            #speak(current_time)
             strt=datetime.datetime.now().strftime("%H:%M:%S")
             speak(strt)
 
@@ -211,23 +181,23 @@ if __name__ == "__main__":
 
         elif 'open powerpoint' in query:
             speak("Opening microsoft powerpoint 2016")
-            codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE"
+            codePath = "address of powerpoint's exe file"
             os.startfile(codePath)
 
         elif "open excel" in query:
              speak("Opening microsoft Excel 2016")
-             codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+             codePath = "address of excel's exe file"
              os.startfile(codePath)
 
         elif 'open word' in query:
             print("Opening microsoft word 2016")
             speak("Opening microsoft word 2016")
-            wordPath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+            wordPath = "address of word's exe file"
             os.startfile(wordPath)
 
         elif 'open sublime' in query:
             speak("Opening Sublime Text")
-            limePath = "D:\\Sublime Text 3\\sublime_text.exe"
+            limePath = "address of sublime's exe file"
             os.startfile(limePath)
 
         elif 'send email' in query:
@@ -266,7 +236,7 @@ if __name__ == "__main__":
         elif "write a note" in query:
             speak("What should I write, sir")
             note = takeCommand()
-            file = open('Jerry.txt', 'w')
+            file = open('Notes.txt', 'w')
             speak("Sir, Should i include date and time")
             snfm = takeCommand()
             if 'yes' in snfm or 'sure' in snfm:
@@ -281,30 +251,13 @@ if __name__ == "__main__":
 
         elif "show note" in query:
             speak("Showing Notes")
-            file = open("Jerry.txt", "r")
+            file = open("Notes.txt", "r")
             print(file.read())
             speak(file.read(6))
 
-        #elif "good morning" or "good afternoon" or "good evening" in query:
-         #   speak("A warm" + query + ", sir")
-          #  speak("How are you sir")
-
-        #elif "what is" in query or "who is" in query:
-
-            # Use the same API key
-            # that we have generated earlier
-            '''client = wolframalpha.Client("API_ID")
-            res = client.query(query)
-
-            try:
-                print(next(res.results).text)
-                speak(next(res.results).text)
-            except StopIteration:
-                print("No results")'''
-            # search_web(query)
-
+        
         elif 'send whatsapp message' in query:
-            pywhatkit.sendwhatmsg('+919993417064', 'Happy birthday', 13, 46)
+            pywhatkit.sendwhatmsg('your mobile number with countrycode', 'mesaage to be sent', hour of message to be sent, minute of message to be sent)
             speak("Done")
 
         elif 'download youtube video' in query:
