@@ -1,223 +1,348 @@
+from selenium import webdriver # to control browser operations
+# from  datetime import datetime
 import pyjokes
 import wikipedia
 import pywhatkit
-from time import ctime
+import time
 import os
-import smtplib 
-import pyttsx3 #pip importpyttsx3
+import smtplib # import pyttsx3  # pip import pyttsx3
 import webbrowser
-import speech_recognition as sr #pip install speechRecognition
+import speech_recognition as sr  # pip install speechRecognition
 import datetime
 import sys
+from speak1 import speak
+
+# import wolframalpha
+
+'''engine = pyttsx3.init('sapi5')  # microsoft Speech api
+voices = engine.getProperty('voices')
+# print(voices[0].id)
+engine.setProperty('voice', voices[0].id)'''
+
+'''today = datetime.now()
+d=today.strftime(r"%d.%m.%Y.%H.%M.%S")'''
+
+t = time.localtime()
+current_time = time.strftime("%H:%M:%S", t)
 
 
-engine = pyttsx3.init('sapi5') #microsoft Speech api
-voices=engine.getProperty ('voices') 
-#print(voices[0].id)
-engine.setProperty('voice',voices[0].id)
-
-
-
+# print(current_time)
 
 def wishMe():
-	hour=int(datetime.datetime.now().hour)
-	if hour>=0 and hour<12:
-		speak("Good Morning sir!!")
-		print("Good Morning sir!!")
-	elif hour>=12 and hour<17:
-		speak("good Afternoon sir!!")
-		print("good Afternoon sir!!")
-	else:
-		speak("Good evening sir!!")
-		print("Good evening sir!!")
-	speak("Jerry on your service , how may I help you today?")
-	print("Jerry on your service , how may I help you today?")
+    # speak("Initiating Jerry")
+    # os.system('python Vibrant_circle.py')
+    hour = int(datetime.datetime.now().hour)
+    if hour >= 0 and hour < 12:
+        speak("Good Morning sir!!")
+    # print("Good Morning sir!!")
+    elif hour >= 12 and hour < 17:
+        speak("Good Afternoon sir!!")
+    # print("good Afternoon sir!!")
+    else:
+        speak("Good evening sir!!")
+        print("Good evening sir!!")
+    speak("Jerry on your service ")
+    speak("It's :")
+    speak(current_time)
+
+    speak(", how may I help you today?")
 
 
+'''def speak(audio):
+    engine.setProperty('rate', 190)
+    engine.setProperty('volume', 1.0)
+    engine.say(audio)
+    engine.runAndWait()'''
 
-def speak(audio):	
-	engine.say(audio)
-	engine.runAndWait()
 
 def takeCommand():
-	#It takes mircophone input from the user and returns the string output
-	r=sr.Recognizer()
-	with sr.Microphone() as source:
-		print("Listening....")
-		r.pause_threshold = 1
-		audio=r.listen(source)
+    # It takes mircophone input from the user and returns the string output
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening....")
+        r.pause_threshold = 1
+        audio = r.listen(source)
 
-		try:
-			print("Recognizing....")
-			query=r.recognize_google(audio,language='en-in')
-			print(f"User said :{query}\n")
-		
-		
-		except Exception as e:
-			#print(e)
+        try:
+            print("Recognizing....")
+            query = r.recognize_google(audio, language = 'en-in')
+            print(f"User said :{query}\n")
 
-			print("Say that again please....")
-			#speak("Say that again please....")
-			return"NONE"
-	return query
+        except Exception as e:
+            # print(e)
 
-email_list={
-			dictionary having name as key and email address as value
+            print("Say that again please....")
+            # speak("Say that again please....")
+            return "NONE"
+    return query
+
+
+email_list = {
+    'Jeet': 'jeetraiwal@gmail.com',
+    'Dad': 'niranjankumarraiwal@gmail.com',
+    'Mom': 'manjulataraiwal@gmail.com',
+    'Saurabh': 'sourabh.raiwal@gmail.com',
+    'Ved Sir': 'vedkumargupta@ipsacademy.org',
+    'Aishwarya': 'aishwaryaaric12@gmail.com',
+    'Vanshika': 'somanivanshika30002@gmail.com',
+    'Isha': 'mehtaisha3006@gmail.com',
+    'Priyanka': 'bhardwaj.priyanka.99@gmail.com',
+    'Manvendra': 'manvendra.nema1@gmail.com'
 
 }
 
+
+#def start1():
+ #   os.system('python start.py')
+
+
 def myWork():
-	print("1. To communicate with others I can send email to person you like.")
-	speak("1. To communicate with others I can send email to person you like.")
-	print("2. to explore new content I can take you to Google chrome.")
-	speak("2. to explore new content I can take you to Google chrome.")
-	print("3. I can play any song on youtube for you.")
-	speak("3. I can play any song on youtube for you.")
-	print("4. I can search anything on wikipedia for you.")
-	speak("4. I can search anything on wikipedia for you.")
-	print("5. I can open any software in the system.")
-	speak("5. I can open any software in the system.")
-	print("6. I can open youtube on your command.")
-	speak("6. I can open youtube on your command.")
-	print("7. For new learning I can open geeksforgeeks site.")
-	speak("7. For new learning I can open geeksforgeeks site.")
-	print("8. To make you feel happy, I can play songs.")
-	speak("8. To make you feel happy, I can play songs.")
-	print("9. I can show you time to keep you on time everywhere.")
-	speak("9. I can show you time to keep you on time everywhere.")
-	print("10. I can put the system on sleep")
-	speak("10. I can put the system on sleep")
-	print("11. I can lock on your command")
-	speak("11. I can lock on your command")
-
-def sendEmail(to,content):
-	server=smtplib.SMTP('smtp.gmail.com',587)
-	server.ehlo()
-	server.starttls()
-	server.login('your email address','email address password')
-	server.sendmail('your email address',to,content)
-	server.close()
-
-if __name__=="__main__":
-	wishMe()
-	while True:
-		query=takeCommand().lower()
-		# logic for executing tasks based on query
-		if 'what can you do' in query:
-			myWork()
-
-		elif 'open youtube' in query:
-			print("Opening youtube")
-			speak("Opening youtube")
-			webbrowser.open("youtube.com")
-
-
-
-		elif 'open google' in query:
-			print("Opening google chrome")
-			speak("Opening google chrome")
-			webbrowser.open("google.com")
-
-
-		elif 'open geeksforgeeks' in query:
-			print("Opening geeksforgeeks site")
-			speak("Opening geeksforgeeks site")
-			webbrowser.open("geeksforgeeks.com")
-
-
-		elif 'play' in query:
-			speak("Just a moment, playing music")
-			pywhatkit.playonyt(query)
-			#music_dir="C:\\music"
-			#songs=os.listdir(music_dir)
-			#print(songs)
-			#os.startfile(path to your music directory)
-
-		elif 'wikipedia' in query:
-			speak("Just a moment, searching wikipedia")
-			thing=query.replace('wikipedia','')
-			info=wikipedia.summary(thing,3)
-			print(info)
-			speak(info)
-
-
-		elif 'joke' in query:
-			speak(pyjokes.get_joke())
-
-
-
-		elif 'the time' in query:
-			print(ctime())
-			speak(ctime())
-
-
-		elif 'lock my pc' in query:
-			os.system("rundll32.exe user32.dll,LockWorkStation")
-		
-		elif 'put the laptop in sleep' in query:
-			os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
-
-		elif 'minimise windows' in query:
-			speak("Minimisng all windows")
-			os.system('''powershell -command "(new-object -com shell.application).minimizeall()"''')
-
-
-	   
-
-		elif 'open code' in query:
-			speak("Opening Visual Studio Code")
-			codePath="visual studio code's exe file address"
-			#print("O")
-			os.startfile(codePath)
-
-
-		elif 'open word' in query:
-			print("Opening microsoft word 2016")
-			speak("Opening microsoft word 2016")
-			wordPath="Microsoft word's exe file address"
-			os.startfile(wordPath)
-
-		elif 'open sublime' in query:
-			speak("Opening Sublime Text")
-			limePath="Sublime's exe file address"
-			os.startfile(limePath)
-
-		elif 'open notepad++' in query:
-			speak("Opening notepad++")
-			notePath="Notepad's exe file address"
-			os.startfile(notePath)
-
-
-		elif 'send email' in query:
-			try:
-				print("To whom should I send the mail")
-				speak("To whom should I send the mail")
-				name=takeCommand()
-				to=email_list[name]
-				print(to)
-				speak("What should I say")
-				print("What should I say")
-				content=takeCommand()
-				sendEmail(to,content)
-				speak("Email has been sent")
-			except Exception as e:
-				print(e)
-				speak("Sorry my friend ,I am not able to send this email")
-
-
-		elif 'send whatsup message' in query:
-			pywhatkit.sendwhatmsg('your mobile nnumber', 'message to be sent',hour of message to be sent,minute of message to send)
-
-		else:
-			if 'bye' in query:
-				speak("bye sir!, have a good day")
-				sys.exit()
+    print("1. To communicate with others I can send email to person you like.")
+    speak("1. To communicate with others I can send email to person you like.")
+    print("2. to explore new content I can take you to Google chrome.")
+    speak("2. to explore new content I can take you to Google chrome.")
+    print("3. I can play any song on youtube for you.")
+    speak("3. I can play any song on youtube for you.")
+    print("4. I can search anything on wikipedia for you.")
+    speak("4. I can search anything on wikipedia for you.")
+    print("5. I can open any software in the system.")
+    speak("5. I can open any software in the system.")
+    print("6. I can open youtube on your command.")
+    speak("6. I can open youtube on your command.")
+    print("7. For new learning I can open geeksforgeeks site.")
+    speak("7. For new learning I can open geeksforgeeks site.")
+    print("8. To make you feel happy, I can play songs on youtube.")
+    speak("8. To make you feel happy, I can play songs on youtube.")
+    print("9. I can show you time to keep you on time everywhere.")
+    speak("9. I can show you time to keep you on time everywhere.")
+    print("10. I can put the system on sleep")
+    speak("10. I can put the system on sleep")
+    print("11. I can lock on your command")
+    speak("11. I can lock on your command")
+    print("12. I can take selfies")
+    speak("12. I can take selfies")
+    print("13. I can take screenshots")
+    speak("13. I can take screenshots")
+    print("14. I can show any location on map")
+    speak("14. I can show any location on map")
+    print("15. I can show you weather of any city you like")
+    speak("15. I can show you weather of any city you like")
+    print("16. I can download youtube videos for you")
+    speak("16. I can download youtube videos for you")
+    print("17. I can make pencil sketch for you of your photos")
+    speak("17. I can make pencil sketch for you photos")
+    print("18. I can download instagram's user profile you like")
+    speak("18. I can download instagram's user profile you like")
 
 
 
 
 
+def sendEmail(to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('jolly.raiwal@gmail.com', 'Football@07')
+    server.sendmail('jolly.raiwal@gmail.com', to, content)
+    server.close()
 
 
+if __name__ == "__main__":
+    clear = lambda: os.system('cls')
+    # start1()
+    clear()
+    wishMe()
+    while True:
+        query = takeCommand().lower()
+        # logic for executing tasks based on query
+        if 'what can you do' in query:
+            myWork()
+
+        elif 'open youtube' in query:
+            print("Opening youtube")
+            speak("Opening youtube")
+            webbrowser.open("youtube.com")
+
+        elif 'open google' in query:
+            print("Opening google chrome")
+            speak("Opening google chrome")
+            webbrowser.open("google.com")
+
+        elif 'open geeks for geeks' in query:
+            print("Opening geeksforgeeks site")
+            speak("Opening geeksforgeeks site")
+            webbrowser.open("geeksforgeeks.com")
+
+        elif 'play' in query:
+            speak("Just a moment, playing it")
+            pywhatkit.playonyt(query)
+
+        elif 'wikipedia' in query:
+            speak("Just a moment, searching wikipedia")
+            thing = query.replace('wikipedia', '')
+            info = wikipedia.summary(thing, 2)
+            print(info)
+            speak("According to wikipedia, ")
+            speak(info)
+
+        elif 'joke' in query:
+            speak(pyjokes.get_joke())
 
 
+        elif 'the time' in query:
+            #print(current_time)
+            #speak(current_time)
+            strt=datetime.datetime.now().strftime("%H:%M:%S")
+            speak(strt)
+
+
+        elif 'the weather' in query:
+            os.system('python weather.py')
+
+        elif 'lock my pc' in query:
+            os.system("rundll32.exe user32.dll,LockWorkStation")
+
+        elif 'put the laptop in sleep' in query:
+            os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+
+        elif 'minimise windows' in query:
+            speak("Minimisng all windows")
+            os.system('''powershell -command "(new-object -com shell.application).minimizeall()"''')
+
+        elif 'open powerpoint' in query:
+            speak("Opening microsoft powerpoint 2016")
+            codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE"
+            os.startfile(codePath)
+
+        elif "open excel" in query:
+             speak("Opening microsoft Excel 2016")
+             codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+             os.startfile(codePath)
+
+        elif 'open word' in query:
+            print("Opening microsoft word 2016")
+            speak("Opening microsoft word 2016")
+            wordPath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+            os.startfile(wordPath)
+
+        elif 'open sublime' in query:
+            speak("Opening Sublime Text")
+            limePath = "D:\\Sublime Text 3\\sublime_text.exe"
+            os.startfile(limePath)
+
+        elif 'send email' in query:
+            try:
+                print("To whom should I send the mail")
+                speak("To whom should I send the mail")
+                name = takeCommand()
+                to = email_list[name]
+                print(to)
+                speak("What should I say")
+                print("What should I say")
+                content = takeCommand()
+                sendEmail(to, content)
+                speak("Email has been sent")
+            except Exception as e:
+                print(e)
+                speak("Sorry my friend ,I am not able to send this email")
+
+        elif 'take a photo' in query:
+            os.system("python camera.py")
+
+        elif 'how are you' in query:
+            speak("I am fine, Thank you")
+            speak("How are you, Sir")
+
+        elif "who made you" in query or "who created you" in query:
+            speak("I have been created by Jeet sir.")
+
+        elif 'search' in query:
+            query = query.replace("search", "")
+            webbrowser.open(query)
+
+        elif "who are you" in query:
+            speak("I am a virtual assistant, created by Jeet")
+
+        elif "write a note" in query:
+            speak("What should I write, sir")
+            note = takeCommand()
+            file = open('Jerry.txt', 'w')
+            speak("Sir, Should i include date and time")
+            snfm = takeCommand()
+            if 'yes' in snfm or 'sure' in snfm:
+                strt=datetime.datetime.now().strftime("%H:%M:%S")
+                file.write(strt)
+                file.write(" :- ")
+                file.write(note)
+                speak('Note written')
+            else:
+                file.write(note)
+                speak('Note written')
+
+        elif "show note" in query:
+            speak("Showing Notes")
+            file = open("Jerry.txt", "r")
+            print(file.read())
+            speak(file.read(6))
+
+        #elif "good morning" or "good afternoon" or "good evening" in query:
+         #   speak("A warm" + query + ", sir")
+          #  speak("How are you sir")
+
+        #elif "what is" in query or "who is" in query:
+
+            # Use the same API key
+            # that we have generated earlier
+            '''client = wolframalpha.Client("API_ID")
+            res = client.query(query)
+
+            try:
+                print(next(res.results).text)
+                speak(next(res.results).text)
+            except StopIteration:
+                print("No results")'''
+            # search_web(query)
+
+        elif 'send whatsapp message' in query:
+            pywhatkit.sendwhatmsg('+919993417064', 'Happy birthday', 13, 46)
+            speak("Done")
+
+        elif 'download youtube video' in query:
+            try:
+                speak("Enter the url of video??")
+                os.system('python Download_Youtube_video.py')
+                speak("Video Downloaded.")
+
+            except Exception as e:
+                print(e)
+                speak("Not able to download due to some error !, see terminal")
+
+        elif 'take a screenshot' in query:
+            speak("Taking a screenshot in 8 seconds")
+            os.system('python Screenshot.py')
+            speak("Screenshot taken.")
+
+        elif 'find location' in query:
+                os.system('python map.py')
+
+        elif 'download instagram profile' in query:
+            speak("Enter the username of profile?")
+            try:
+                os.system('python insta.py')
+                speak("Profile downloaded.")
+            except Exception as e:
+                print(e)
+                speak("Not able to download due to some error!, see terminal")
+
+        elif 'generate qr code' in query:
+            os.system('python generate_QR_code.py')
+
+        elif 'make a pencil sketch' in query:
+            os.system('python image_to_pencil_sketch.py')
+
+        elif 'show weather' in query:
+            os.system('python weather.py')
+
+        elif 'bye' in query:
+            speak("bye sir!, have a good day")
+            sys.exit()
